@@ -1,36 +1,197 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Restaurant Admin - Hệ thống quản lý nhà hàng
 
-## Getting Started
+Ứng dụng quản trị dành cho hệ thống nhà hàng, được xây dựng với Next.js 16, TypeScript, và Tailwind CSS.
 
-First, run the development server:
+## 🎨 Màu sắc chủ đạo
+
+- **Primary (Orange)**: #ff9f0d - Màu cam chủ đạo
+- **Secondary (Olive)**: #999966 - Màu olive phụ
+- **Accent (Green)**: #195a00 - Màu xanh lá accent
+
+## 🚀 Công nghệ sử dụng
+
+- **Framework**: Next.js 16 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS 4
+- **UI Components**: shadcn/ui
+- **State Management**: Zustand
+- **Form Handling**: React Hook Form + Zod
+- **HTTP Client**: Axios
+- **Icons**: Lucide React
+
+## 📁 Cấu trúc dự án
+
+```
+CNPMM-Restaurant-Admin-FE/
+├── app/
+│   ├── (auth)/              # Auth routes (login, register)
+│   │   ├── login/
+│   │   └── layout.tsx
+│   ├── (dashboard)/         # Dashboard routes (protected)
+│   │   ├── dashboard/
+│   │   │   ├── page.tsx    # Trang tổng quan
+│   │   │   ├── orders/     # Quản lý đơn hàng
+│   │   │   ├── menu/       # Quản lý thực đơn
+│   │   │   ├── tables/     # Quản lý bàn ăn
+│   │   │   ├── reservations/ # Quản lý đặt bàn
+│   │   │   ├── customers/  # Quản lý khách hàng
+│   │   │   ├── reports/    # Báo cáo thống kê
+│   │   │   └── settings/   # Cài đặt
+│   │   └── layout.tsx
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx
+├── components/
+│   ├── ui/                  # shadcn/ui components
+│   ├── layout/              # Layout components (Sidebar, Header)
+│   ├── features/            # Feature-specific components
+│   └── providers/           # React context providers
+├── hooks/                   # Custom React hooks
+├── lib/                     # Utility functions
+├── services/                # API services
+│   ├── api-client.ts       # Axios instance
+│   └── auth.service.ts     # Auth API calls
+├── stores/                  # Zustand stores
+│   └── auth.store.ts       # Authentication state
+├── types/                   # TypeScript types
+│   ├── auth.ts
+│   └── index.ts
+├── constants/               # Constants & configs
+│   ├── routes.ts           # Route definitions
+│   └── navigation.ts       # Navigation items
+├── middleware.ts            # Next.js middleware (auth guard)
+└── .env.local              # Environment variables
+```
+
+## 🛠️ Cài đặt
+
+1. Clone repository:
+
+```bash
+git clone <repository-url>
+cd CNPMM-Restaurant-Admin-FE
+```
+
+2. Cài đặt dependencies:
+
+```bash
+npm install
+```
+
+3. Tạo file `.env.local`:
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:8000/api
+NEXT_PUBLIC_APP_NAME=Restaurant Admin
+JWT_SECRET=your-secret-key-change-in-production
+```
+
+4. Chạy development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Mở [http://localhost:3000](http://localhost:3000) để xem ứng dụng.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🔐 Authentication
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Hệ thống sử dụng JWT authentication với Zustand để quản lý state:
 
-## Learn More
+- **Login Route**: `/login`
+- **Dashboard Route**: `/dashboard` (protected)
+- **Middleware**: Tự động redirect nếu chưa đăng nhập
 
-To learn more about Next.js, take a look at the following resources:
+### Tài khoản demo:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Email: `admin@restaurant.com`
+- Password: `admin123`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📱 Tính năng chính
 
-## Deploy on Vercel
+### ✅ Đã triển khai:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- ✅ Cấu hình màu sắc theo brand
+- ✅ Cấu trúc thư mục production-ready
+- ✅ Trang đăng nhập với validation
+- ✅ Dashboard layout với sidebar responsive
+- ✅ Authentication & protected routes
+- ✅ Trang tổng quan với các thống kê
+- ✅ Navigation structure cho các module
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 🔜 Sắp triển khai:
+
+- ⏳ Quản lý đơn hàng chi tiết
+- ⏳ Quản lý thực đơn (CRUD)
+- ⏳ Quản lý bàn ăn
+- ⏳ Hệ thống đặt bàn
+- ⏳ Quản lý khách hàng
+- ⏳ Báo cáo & thống kê
+- ⏳ Cài đặt hệ thống
+
+## 🎯 Routing Structure
+
+Dự án sử dụng Next.js App Router với route groups:
+
+- `(auth)` - Public routes: Login, Register
+- `(dashboard)` - Protected routes: All admin pages
+
+### Thêm route mới:
+
+1. Tạo folder trong `/app/(dashboard)/dashboard/`
+2. Thêm route vào `constants/routes.ts`
+3. Thêm navigation item vào `constants/navigation.ts`
+4. Sidebar sẽ tự động cập nhật
+
+## 🔧 Scripts
+
+```bash
+npm run dev      # Chạy development server
+npm run build    # Build production
+npm run start    # Start production server
+npm run lint     # Chạy ESLint
+```
+
+## 🎨 Thêm UI Components
+
+Dự án sử dụng shadcn/ui. Để thêm component mới:
+
+```bash
+npx shadcn@latest add <component-name>
+```
+
+Ví dụ:
+
+```bash
+npx shadcn@latest add dialog
+npx shadcn@latest add table
+npx shadcn@latest add select
+```
+
+## 📝 Code Style
+
+- **TypeScript**: Strict mode enabled
+- **ESLint**: Next.js recommended config
+- **Component Pattern**: Client components khi cần state/hooks
+- **Naming**: PascalCase cho components, camelCase cho functions
+
+## 🚀 Deployment
+
+Có thể deploy lên:
+
+- **Vercel** (recommended)
+- **Netlify**
+- **Docker**
+
+```bash
+npm run build
+npm run start
+```
+
+## 📄 License
+
+Private - CNPMM Project
+
+## 👥 Team
+
+Dự án CNPMM - Hệ thống nhà hàng
