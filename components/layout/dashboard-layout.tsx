@@ -1,6 +1,5 @@
 "use client";
 
-import { PageHeader } from "@/components/layout/page-header";
 import { Sidebar } from "@/components/layout/sidebar";
 
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
@@ -16,7 +15,6 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
 
         {/* Main Content */}
         <div className="container max-w-7xl mx-auto py-6 lg:py-8 px-4 lg:px-8">
-          <PageHeader />
           {children}
         </div>
       </main>
