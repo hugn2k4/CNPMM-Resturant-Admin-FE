@@ -1,9 +1,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { NAVIGATION_ITEMS } from "@/constants/navigation";
-import { Bell, Search } from "lucide-react";
+import { Bell } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 export function PageHeader() {
@@ -17,17 +16,10 @@ export function PageHeader() {
   return (
     <div className="mb-6 lg:mb-8">
       {/* Title & Description */}
-      <div className="mb-4">
-        <h1 className="text-2xl lg:text-3xl font-bold text-foreground">{pageTitle}</h1>
-        <p className="text-muted-foreground mt-1">{pageDescription}</p>
-      </div>
-
-      {/* Search & Actions */}
-      <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
-        {/* Search Bar */}
-        <div className="relative flex-1 max-w-md">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Input type="search" placeholder="Tìm kiếm..." className="pl-9 h-10" />
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div>
+          <h1 className="text-2xl lg:text-3xl font-bold text-foreground">{pageTitle}</h1>
+          <p className="text-muted-foreground mt-1">{pageDescription}</p>
         </div>
 
         {/* Action Buttons */}

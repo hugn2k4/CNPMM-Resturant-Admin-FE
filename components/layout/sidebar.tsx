@@ -7,7 +7,7 @@ import { NAVIGATION_ITEMS } from "@/constants/navigation";
 import { cookieUtils } from "@/lib/cookies";
 import { cn } from "@/lib/utils";
 import { useAuthStore } from "@/stores/auth.store";
-import { ChevronLeft, ChevronRight, LogOut, Menu, User, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, LogOut, Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -47,9 +47,9 @@ export function Sidebar() {
 
       {/* Overlay */}
       {isOpen && (
-        <div 
-          className="lg:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-30 animate-in fade-in duration-300" 
-          onClick={() => setIsOpen(false)} 
+        <div
+          className="lg:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-30 animate-in fade-in duration-300"
+          onClick={() => setIsOpen(false)}
         />
       )}
 
@@ -65,11 +65,7 @@ export function Sidebar() {
         <div className="flex flex-col h-full">
           {/* Header */}
           <div className="p-6 border-b border-sidebar-border/50 bg-white/50 backdrop-blur-sm">
-            <Link 
-              href="/dashboard" 
-              className="flex items-center gap-3 group" 
-              onClick={() => setIsOpen(false)}
-            >
+            <Link href="/dashboard" className="flex items-center gap-3 group" onClick={() => setIsOpen(false)}>
               <div className="relative w-12 h-12 rounded-2xl overflow-hidden bg-gradient-to-br from-primary to-orange-600 flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg group-hover:shadow-xl">
                 <Image
                   src="/logo.svg"
@@ -110,8 +106,8 @@ export function Sidebar() {
                 const Icon = item.icon;
 
                 return (
-                  <li 
-                    key={item.href} 
+                  <li
+                    key={item.href}
                     className="animate-in slide-in-from-left duration-300"
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
@@ -121,9 +117,7 @@ export function Sidebar() {
                       className={cn(
                         "flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all duration-300 group relative overflow-hidden",
                         "hover:bg-gradient-to-r hover:from-primary/10 hover:to-orange-500/10",
-                        isActive 
-                          ? "bg-gradient-to-r from-primary/15 to-orange-500/15 shadow-sm" 
-                          : "hover:shadow-sm"
+                        isActive ? "bg-gradient-to-r from-primary/15 to-orange-500/15 shadow-sm" : "hover:shadow-sm"
                       )}
                       title={isCollapsed ? item.title : undefined}
                     >
@@ -133,34 +127,36 @@ export function Sidebar() {
                       )}
 
                       {/* Icon */}
-                      <div className={cn(
-                        "flex items-center justify-center transition-all duration-300",
-                        isActive ? "text-primary" : "text-muted-foreground group-hover:text-primary",
-                        isCollapsed && "mx-auto"
-                      )}>
+                      <div
+                        className={cn(
+                          "flex items-center justify-center transition-all duration-300",
+                          isActive ? "text-primary" : "text-muted-foreground group-hover:text-primary",
+                          isCollapsed && "mx-auto"
+                        )}
+                      >
                         <Icon
                           className={cn(
                             "h-5 w-5 transition-all duration-300",
                             "group-hover:scale-110",
                             isActive && "animate-pulse"
                           )}
-                          style={{ animationDuration: '2s' }}
+                          style={{ animationDuration: "2s" }}
                         />
                       </div>
 
                       {/* Text */}
                       {!isCollapsed && (
                         <div className="flex-1 animate-in slide-in-from-left duration-300">
-                          <p className={cn(
-                            "font-semibold text-sm transition-colors",
-                            isActive ? "text-primary" : "text-foreground group-hover:text-primary"
-                          )}>
+                          <p
+                            className={cn(
+                              "font-semibold text-sm transition-colors",
+                              isActive ? "text-primary" : "text-foreground group-hover:text-primary"
+                            )}
+                          >
                             {item.title}
                           </p>
                           {item.description && (
-                            <p className="text-xs text-muted-foreground line-clamp-1 mt-0.5">
-                              {item.description}
-                            </p>
+                            <p className="text-xs text-muted-foreground line-clamp-1 mt-0.5">{item.description}</p>
                           )}
                         </div>
                       )}
@@ -181,14 +177,18 @@ export function Sidebar() {
           {/* User Profile & Logout */}
           <div className="p-4 border-t border-sidebar-border/50 bg-white/30 backdrop-blur-sm">
             {/* User Profile Card */}
-            <div className={cn(
-              "flex items-center gap-3 px-4 py-3 rounded-xl bg-gradient-to-br from-primary/10 to-orange-500/10 mb-3 group hover:shadow-md transition-all duration-300 border border-primary/20",
-              isCollapsed && "justify-center px-2"
-            )}>
-              <Avatar className={cn(
-                "border-2 border-primary/30 group-hover:border-primary transition-colors",
-                isCollapsed ? "w-10 h-10" : "w-11 h-11"
-              )}>
+            <div
+              className={cn(
+                "flex items-center gap-3 px-4 py-3 rounded-xl bg-gradient-to-br from-primary/10 to-orange-500/10 mb-3 group hover:shadow-md transition-all duration-300 border border-primary/20",
+                isCollapsed && "justify-center px-2"
+              )}
+            >
+              <Avatar
+                className={cn(
+                  "border-2 border-primary/30 group-hover:border-primary transition-colors",
+                  isCollapsed ? "w-10 h-10" : "w-11 h-11"
+                )}
+              >
                 <AvatarFallback className="bg-gradient-to-br from-primary to-orange-600 text-white font-bold text-sm">
                   {user?.name?.charAt(0) || "A"}
                 </AvatarFallback>
@@ -208,14 +208,14 @@ export function Sidebar() {
             <Button
               variant="outline"
               className={cn(
-                "w-full gap-2 hover:bg-destructive hover:text-white hover:border-destructive transition-all duration-300 group",
+                "w-full gap-2 border-red-200 text-red-600 hover:!bg-red-600 hover:!text-white hover:!border-red-600 transition-all duration-300 group",
                 isCollapsed ? "px-2 justify-center" : "justify-start"
               )}
               onClick={handleLogout}
               title={isCollapsed ? "Đăng xuất" : undefined}
             >
               <LogOut className="h-4 w-4 group-hover:rotate-12 transition-transform duration-300" />
-              {!isCollapsed && <span>Đăng xuất</span>}
+              {!isCollapsed && <span className="font-medium">Đăng xuất</span>}
             </Button>
           </div>
         </div>

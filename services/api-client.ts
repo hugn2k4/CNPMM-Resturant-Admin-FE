@@ -5,7 +5,7 @@ class ApiClient {
 
   constructor() {
     this.client = axios.create({
-      baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api",
+      baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001/api",
       headers: {
         "Content-Type": "application/json",
       },
@@ -39,28 +39,46 @@ class ApiClient {
   }
 
   async get<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
-    const response: AxiosResponse<T> = await this.client.get(url, config);
-    return response.data;
+    const response: AxiosResponse<{ statusCode: number; message: string; data: T }> = await this.client.get(
+      url,
+      config
+    );
+    return response.data.data;
   }
 
   async post<T>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<T> {
-    const response: AxiosResponse<T> = await this.client.post(url, data, config);
-    return response.data;
+    const response: AxiosResponse<{ statusCode: number; message: string; data: T }> = await this.client.post(
+      url,
+      data,
+      config
+    );
+    return response.data.data;
   }
 
   async put<T>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<T> {
-    const response: AxiosResponse<T> = await this.client.put(url, data, config);
-    return response.data;
+    const response: AxiosResponse<{ statusCode: number; message: string; data: T }> = await this.client.put(
+      url,
+      data,
+      config
+    );
+    return response.data.data;
   }
 
   async delete<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
-    const response: AxiosResponse<T> = await this.client.delete(url, config);
-    return response.data;
+    const response: AxiosResponse<{ statusCode: number; message: string; data: T }> = await this.client.delete(
+      url,
+      config
+    );
+    return response.data.data;
   }
 
   async patch<T>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<T> {
-    const response: AxiosResponse<T> = await this.client.patch(url, data, config);
-    return response.data;
+    const response: AxiosResponse<{ statusCode: number; message: string; data: T }> = await this.client.patch(
+      url,
+      data,
+      config
+    );
+    return response.data.data;
   }
 }
 
