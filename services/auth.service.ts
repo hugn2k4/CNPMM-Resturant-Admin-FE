@@ -17,4 +17,24 @@ export const authService = {
   async refreshToken(): Promise<{ token: string }> {
     return apiClient.post("/auth/refresh");
   },
+
+  async register(data: any): Promise<AuthResponse> {
+    return apiClient.post("/auth/register", data);
+  },
+
+  async sendRegisterOtp(data: any): Promise<any> {
+    return apiClient.post("/auth/send-register-otp", data);
+  },
+
+  async verifyRegisterOtp(email: string, otp: string): Promise<AuthResponse> {
+    return apiClient.post("/auth/verify-register-otp", { email, otp });
+  },
+
+  async forgotPassword(email: string): Promise<any> {
+    return apiClient.post("/auth/forgot-password", { email });
+  },
+
+  async resetPassword(data: any): Promise<any> {
+    return apiClient.post("/auth/reset-password", data);
+  },
 };
