@@ -18,6 +18,8 @@ import {
   Package,
   Star
 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { ROUTES } from "@/constants/routes";
 import { 
   AreaChart, 
   Area, 
@@ -44,6 +46,7 @@ const stats = [
     icon: DollarSign,
     color: "text-green-600",
     bgColor: "bg-green-100",
+    link: "/dashboard/reports",
   },
   {
     title: "Đơn hàng mới",
@@ -53,6 +56,7 @@ const stats = [
     icon: ShoppingCart,
     color: "text-primary",
     bgColor: "bg-orange-100",
+    link: "/dashboard/orders",
   },
   {
     title: "Khách hàng",
@@ -62,6 +66,7 @@ const stats = [
     icon: Users,
     color: "text-blue-600",
     bgColor: "bg-blue-100",
+    link: "/dashboard/customers",
   },
   {
     title: "Đặt bàn hôm nay",
@@ -71,6 +76,7 @@ const stats = [
     icon: Calendar,
     color: "text-purple-600",
     bgColor: "bg-purple-100",
+    link: "/dashboard/reservations",
   },
 ];
 
@@ -154,6 +160,8 @@ const getStatusBadge = (status: string) => {
 };
 
 export default function DashboardPage() {
+  const router = useRouter();
+
   return (
     <div className="space-y-6 animate-in fade-in duration-500">
       {/* Welcome Message */}
@@ -170,11 +178,11 @@ export default function DashboardPage() {
             Quản lý hiệu quả mọi hoạt động của nhà hàng tại một nơi
           </p>
           <div className="flex gap-3 mt-4">
-            <Button size="sm" className="gap-2">
+            <Button size="sm" className="gap-2" onClick={() => router.push('/dashboard/reports')}>
               <Eye className="h-4 w-4" />
               Xem báo cáo
             </Button>
-            <Button size="sm" variant="outline" className="gap-2">
+            <Button size="sm" variant="outline" className="gap-2" onClick={() => router.push('/dashboard/orders')}>
               <ShoppingCart className="h-4 w-4" />
               Đơn hàng mới
             </Button>
@@ -190,6 +198,7 @@ export default function DashboardPage() {
           return (
             <Card 
               key={stat.title} 
+              onClick={() => router.push(stat.link)}
               className="hover:shadow-lg transition-all duration-300 hover:-translate-y-1 cursor-pointer group animate-in slide-in-from-bottom duration-500"
               style={{ animationDelay: `${index * 100}ms` }}
             >
@@ -220,11 +229,22 @@ export default function DashboardPage() {
       <div className="grid gap-4 md:grid-cols-7">
         <Card className="md:col-span-4">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <TrendingUp className="h-5 w-5 text-primary" />
-              Xu hướng doanh thu
-            </CardTitle>
-            <CardDescription>Doanh thu 7 ngày gần nhất</CardDescription>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle className="flex items-center gap-2">
+                  <TrendingUp className="h-5 w-5 text-primary" />
+                  Xu hướng doanh thu
+                </CardTitle>
+                <CardDescription>Doanh thu 7 ngày gần nhất</CardDescription>
+              </div>
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={() => router.push('/dashboard/reports')}
+              >
+                Chi tiết
+              </Button>
+            </div>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
@@ -257,11 +277,22 @@ export default function DashboardPage() {
 
         <Card className="md:col-span-3">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Package className="h-5 w-5 text-primary" />
-              Phân loại món ăn
-            </CardTitle>
-            <CardDescription>Tỷ lệ đơn hàng theo danh mục</CardDescription>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle className="flex items-center gap-2">
+                  <Package className="h-5 w-5 text-primary" />
+                  Phân loại món ăn
+                </CardTitle>
+                <CardDescription>Tỷ lệ đơn hàng theo danh mục</CardDescription>
+              </div>
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={() => router.push('/dashboard/menu')}
+              >
+                Xem menu
+              </Button>
+            </div>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
@@ -297,7 +328,12 @@ export default function DashboardPage() {
                 <ShoppingCart className="h-5 w-5 text-primary" />
                 Đơn hàng gần đây
               </span>
-              <Button variant="ghost" size="sm" className="gap-2">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="gap-2"
+                onClick={() => router.push('/dashboard/orders')}
+              >
                 Xem tất cả
                 <ArrowUpRight className="h-4 w-4" />
               </Button>
@@ -310,6 +346,7 @@ export default function DashboardPage() {
                 <div
                   key={order.id}
                   className="flex items-center justify-between p-4 rounded-lg border hover:bg-accent/50 transition-all duration-200 cursor-pointer group"
+                  onClick={() => router.push(`/dashboard/orders?search=${order.id}`)}
                 >
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-1">
@@ -337,16 +374,31 @@ export default function DashboardPage() {
         {/* Top Dishes */}
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Star className="h-5 w-5 text-primary" />
-              Món ăn bán chạy
+            <CardTitle className="flex items-center justify-between">
+              <span className="flex items-center gap-2">
+                <Star className="h-5 w-5 text-primary" />
+                Món ăn bán chạy
+              </span>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="gap-2"
+                onClick={() => router.push('/dashboard/menu')}
+              >
+                Xem tất cả
+                <ArrowUpRight className="h-4 w-4" />
+              </Button>
             </CardTitle>
             <CardDescription>Top 5 món ăn được đặt nhiều nhất</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               {topDishes.map((dish, index) => (
-                <div key={dish.name} className="flex items-center gap-4">
+                <div 
+                  key={dish.name} 
+                  className="flex items-center gap-4 p-2 rounded-lg hover:bg-accent/50 cursor-pointer transition-colors"
+                  onClick={() => router.push('/dashboard/menu')}
+                >
                   <div className={`flex items-center justify-center w-8 h-8 rounded-full font-bold text-white
                     ${index === 0 ? 'bg-yellow-500' : index === 1 ? 'bg-gray-400' : index === 2 ? 'bg-orange-600' : 'bg-gray-300'}`}
                   >

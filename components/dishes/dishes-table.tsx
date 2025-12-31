@@ -102,7 +102,7 @@ export function DishesTable({ dishes, onRefresh }: DishesTableProps) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {dishes.length === 0 ? (
+            {!dishes || dishes.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={7} className="text-center py-8">
                   <div className="flex flex-col items-center justify-center text-muted-foreground">

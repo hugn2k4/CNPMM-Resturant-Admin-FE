@@ -75,7 +75,7 @@ export default function CustomersPage() {
             <div>
               <h3 className="text-lg font-semibold">Danh sách khách hàng</h3>
               <p className="text-sm text-muted-foreground">
-                Hiển thị {filteredCustomers.length} / {customers.length} khách hàng
+                Hiển thị {filteredCustomers?.length || 0} / {customers?.length || 0} khách hàng
               </p>
             </div>
           </div>

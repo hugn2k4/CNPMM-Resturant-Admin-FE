@@ -42,26 +42,22 @@ export const dishesService = {
   // Lấy tất cả món ăn hoặc theo category
   getAllDishes: async (category?: string): Promise<Dish[]> => {
     const url = category ? `/products?category=${category}` : '/products';
-    const response = await apiClient.get(url);
-    return response.data;
+    return apiClient.get<Dish[]>(url);
   },
 
   // Lấy chi tiết một món ăn
   getDishById: async (id: string): Promise<Dish> => {
-    const response = await apiClient.get(`/products/${id}`);
-    return response.data;
+    return apiClient.get<Dish>(`/products/${id}`);
   },
 
   // Tạo món ăn mới
   createDish: async (data: CreateDishDto): Promise<Dish> => {
-    const response = await apiClient.post('/products', data);
-    return response.data;
+    return apiClient.post<Dish>('/products', data);
   },
 
   // Cập nhật món ăn
   updateDish: async (id: string, data: UpdateDishDto): Promise<Dish> => {
-    const response = await apiClient.patch(`/products/${id}`, data);
-    return response.data;
+    return apiClient.patch<Dish>(`/products/${id}`, data);
   },
 
   // Xóa món ăn
@@ -71,7 +67,6 @@ export const dishesService = {
 
   // Cập nhật trạng thái món ăn
   updateStatus: async (id: string, status: string): Promise<Dish> => {
-    const response = await apiClient.patch(`/products/${id}`, { status });
-    return response.data;
+    return apiClient.patch<Dish>(`/products/${id}`, { status });
   },
 };

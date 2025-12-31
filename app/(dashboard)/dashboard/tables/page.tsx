@@ -200,21 +200,21 @@ export default function TablesPage() {
     setShowDetailDialog(true);
   };
 
-  const filteredTables = tables.filter(table => 
+  const filteredTables = tables?.filter(table => 
     filterStatus === "all" || table.status === filterStatus
-  );
+  ) || [];
 
   const stats = {
-    total: tables.length,
-    available: tables.filter(t => t.status === 'available').length,
-    occupied: tables.filter(t => t.status === 'occupied').length,
-    reserved: tables.filter(t => t.status === 'reserved').length,
-    cleaning: tables.filter(t => t.status === 'cleaning').length,
+    total: tables?.length || 0,
+    available: tables?.filter(t => t.status === 'available').length || 0,
+    occupied: tables?.filter(t => t.status === 'occupied').length || 0,
+    reserved: tables?.filter(t => t.status === 'reserved').length || 0,
+    cleaning: tables?.filter(t => t.status === 'cleaning').length || 0,
   };
 
   const totalRevenue = tables
-    .filter(t => t.currentOrder)
-    .reduce((sum, t) => sum + (t.currentOrder?.amount || 0), 0);
+    ?.filter(t => t.currentOrder)
+    .reduce((sum, t) => sum + (t.currentOrder?.amount || 0), 0) || 0;
 
   return (
     <div className="space-y-6 animate-in fade-in duration-500">

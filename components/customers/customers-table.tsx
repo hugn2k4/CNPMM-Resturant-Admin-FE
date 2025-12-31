@@ -113,7 +113,7 @@ export function CustomersTable({ customers, onRefresh }: CustomersTableProps) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {customers.length === 0 ? (
+            {!customers || customers.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={6} className="text-center py-8">
                   <div className="flex flex-col items-center justify-center text-muted-foreground">

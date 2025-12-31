@@ -45,10 +45,7 @@ export default function LoginPage() {
       setIsLoading(true);
       setError(null);
 
-      const res: any = await authService.login(data);
-
-      // Backend wraps response in { statusCode, message, data }
-      const responseData = res.data || res;
+      const responseData = await authService.login(data);
 
       // Save user data
       useAuthStore.setState({

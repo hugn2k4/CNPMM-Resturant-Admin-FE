@@ -12,7 +12,6 @@ export interface Category {
 
 export const categoriesService = {
   getAllCategories: async (): Promise<Category[]> => {
-    const response = await apiClient.get('/categories');
-    return response.data;
+    return apiClient.get<Category[]>('/categories');
   },
 };

@@ -114,12 +114,9 @@ export default function RegisterPage() {
       setError(null);
 
       // Step 2: Verify OTP and create account
-      const res = await authService.verifyRegisterOtp(registrationEmail, otp);
+      const responseData = await authService.verifyRegisterOtp(registrationEmail, otp);
 
-      console.log("Verify OTP response:", res);
-
-      // Backend wraps response in { statusCode, message, data }
-      const responseData = res.data || res;
+      console.log("Verify OTP response:", responseData);
 
       // Validate response structure
       if (!responseData || !responseData.user) {

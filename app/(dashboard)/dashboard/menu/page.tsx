@@ -70,6 +70,7 @@ export default function MenuPage() {
   }, [searchQuery, dishes]);
 
   const getStatistics = () => {
+    if (!dishes) return { total: 0, available: 0, unavailable: 0, lowStock: 0 };
     return {
       total: dishes.length,
       available: dishes.filter((d) => d.status === 'available').length,
@@ -153,7 +154,7 @@ export default function MenuPage() {
           >
             Tất cả
           </Badge>
-          {categories.map((category) => (
+          {categories?.map((category) => (
             <Badge
               key={category._id}
               variant={selectedCategory === category._id ? 'default' : 'outline'}
@@ -173,7 +174,7 @@ export default function MenuPage() {
             <div>
               <h3 className="text-lg font-semibold">Danh sách món ăn</h3>
               <p className="text-sm text-muted-foreground">
-                Hiển thị {filteredDishes.length} / {dishes.length} món ăn
+                Hiển thị {filteredDishes?.length || 0} / {dishes?.length || 0} món ăn
               </p>
             </div>
           </div>
