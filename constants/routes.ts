@@ -11,6 +11,7 @@ export const ROUTES = {
     TABLES: "/dashboard/tables",
     RESERVATIONS: "/dashboard/reservations",
     CUSTOMERS: "/dashboard/customers",
+    NOTIFICATIONS: "/dashboard/notifications",
     STAFF: "/dashboard/staff",
     REPORTS: "/dashboard/reports",
     SETTINGS: "/dashboard/settings",

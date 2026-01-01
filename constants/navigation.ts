@@ -1,4 +1,5 @@
 import {
+  Bell,
   Calendar,
   ChefHat,
   FileText,
@@ -53,6 +54,12 @@ export const NAVIGATION_ITEMS: NavItem[] = [
     href: "/dashboard/customers",
     icon: Users,
     description: "Quản lý khách hàng",
+  },
+  {
+    title: "Thông báo",
+    href: "/dashboard/notifications",
+    icon: Bell,
+    description: "Quản lý thông báo",
   },
   {
     title: "Báo cáo",
