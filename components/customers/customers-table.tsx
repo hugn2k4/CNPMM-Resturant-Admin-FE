@@ -161,9 +161,11 @@ export function CustomersTable({ customers, onRefresh }: CustomersTableProps) {
                     <div className="flex items-center gap-1 text-sm text-muted-foreground">
                       <Calendar className="h-3 w-3" />
                       <span>
-                        {format(new Date(customer.createdAt), 'dd/MM/yyyy', {
-                          locale: vi,
-                        })}
+                        {customer.createdAt && !isNaN(new Date(customer.createdAt).getTime())
+                          ? format(new Date(customer.createdAt), 'dd/MM/yyyy', {
+                              locale: vi,
+                            })
+                          : 'N/A'}
                       </span>
                     </div>
                   </TableCell>

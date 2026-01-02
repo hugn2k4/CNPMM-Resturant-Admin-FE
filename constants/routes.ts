@@ -8,12 +8,9 @@ export const ROUTES = {
     HOME: "/dashboard",
     ORDERS: "/dashboard/orders",
     MENU: "/dashboard/menu",
-    TABLES: "/dashboard/tables",
-    RESERVATIONS: "/dashboard/reservations",
     CUSTOMERS: "/dashboard/customers",
+    CHAT: "/dashboard/chat",
     NOTIFICATIONS: "/dashboard/notifications",
-    STAFF: "/dashboard/staff",
-    REPORTS: "/dashboard/reports",
     SETTINGS: "/dashboard/settings",
   },
 } as const;

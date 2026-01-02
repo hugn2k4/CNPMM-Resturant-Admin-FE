@@ -1,16 +1,16 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { DishesTable } from '@/components/dishes/dishes-table';
 import { EditDishDialog } from '@/components/dishes/edit-dish-dialog';
 import { PageHeader } from '@/components/layout/page-header';
-import { Dish, dishesService } from '@/services/dishes.service';
-import { Category, categoriesService } from '@/services/categories.service';
-import { toast } from 'sonner';
-import { Loader2, RefreshCw, Plus, Filter, Search } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Category, categoriesService } from '@/services/categories.service';
+import { Dish, dishesService } from '@/services/dishes.service';
+import { Filter, Loader2, Plus, RefreshCw, Search } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
 
 export default function MenuPage() {
   const [dishes, setDishes] = useState<Dish[]>([]);

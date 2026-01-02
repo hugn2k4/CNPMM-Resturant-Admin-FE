@@ -1,10 +1,8 @@
 import {
   Bell,
-  Calendar,
-  ChefHat,
-  FileText,
   LayoutDashboard,
   LucideIcon,
+  MessageCircle,
   Settings,
   ShoppingCart,
   Users,
@@ -38,34 +36,22 @@ export const NAVIGATION_ITEMS: NavItem[] = [
     description: "Quản lý thực đơn",
   },
   {
-    title: "Bàn ăn",
-    href: "/dashboard/tables",
-    icon: ChefHat,
-    description: "Quản lý bàn ăn",
-  },
-  {
-    title: "Đặt bàn",
-    href: "/dashboard/reservations",
-    icon: Calendar,
-    description: "Quản lý đặt bàn",
-  },
-  {
     title: "Khách hàng",
     href: "/dashboard/customers",
     icon: Users,
     description: "Quản lý khách hàng",
   },
   {
+    title: "Chat",
+    href: "/dashboard/chat",
+    icon: MessageCircle,
+    description: "Chat với khách hàng",
+  },
+  {
     title: "Thông báo",
     href: "/dashboard/notifications",
     icon: Bell,
     description: "Quản lý thông báo",
-  },
-  {
-    title: "Báo cáo",
-    href: "/dashboard/reports",
-    icon: FileText,
-    description: "Báo cáo thống kê",
   },
   {
     title: "Cài đặt",

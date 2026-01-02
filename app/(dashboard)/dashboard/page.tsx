@@ -3,39 +3,33 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  Calendar, 
-  ChefHat, 
-  Clock, 
-  DollarSign, 
-  ShoppingCart, 
-  TrendingDown, 
-  TrendingUp, 
-  Users,
+import {
   ArrowUpRight,
+  Bell,
+  ChefHat,
+  Clock,
+  DollarSign,
   Eye,
   Package,
-  Star
+  ShoppingCart,
+  Star,
+  TrendingDown,
+  TrendingUp,
+  Users,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { ROUTES } from "@/constants/routes";
-import { 
-  AreaChart, 
-  Area, 
-  BarChart, 
-  Bar, 
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
-  Tooltip, 
-  ResponsiveContainer,
-  LineChart,
-  Line,
-  PieChart,
+import {
+  Area,
+  AreaChart,
+  CartesianGrid,
+  Cell,
   Pie,
-  Cell
-} from 'recharts';
+  PieChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 
 const stats = [
   {
@@ -46,7 +40,7 @@ const stats = [
     icon: DollarSign,
     color: "text-green-600",
     bgColor: "bg-green-100",
-    link: "/dashboard/reports",
+    link: "/dashboard",
   },
   {
     title: "Đơn hàng mới",
@@ -69,40 +63,40 @@ const stats = [
     link: "/dashboard/customers",
   },
   {
-    title: "Đặt bàn hôm nay",
-    value: "18",
-    change: "-2.4%",
-    trend: "down",
-    icon: Calendar,
+    title: "Thông báo gửi",
+    value: "42",
+    change: "+5.1%",
+    trend: "up",
+    icon: Bell,
     color: "text-purple-600",
     bgColor: "bg-purple-100",
-    link: "/dashboard/reservations",
+    link: "/dashboard/notifications",
   },
 ];
 
 const revenueData = [
-  { name: 'T2', revenue: 12500000, orders: 45 },
-  { name: 'T3', revenue: 15200000, orders: 52 },
-  { name: 'T4', revenue: 14800000, orders: 48 },
-  { name: 'T5', revenue: 18900000, orders: 65 },
-  { name: 'T6', revenue: 22500000, orders: 78 },
-  { name: 'T7', revenue: 25800000, orders: 89 },
-  { name: 'CN', revenue: 28200000, orders: 95 },
+  { name: "T2", revenue: 12500000, orders: 45 },
+  { name: "T3", revenue: 15200000, orders: 52 },
+  { name: "T4", revenue: 14800000, orders: 48 },
+  { name: "T5", revenue: 18900000, orders: 65 },
+  { name: "T6", revenue: 22500000, orders: 78 },
+  { name: "T7", revenue: 25800000, orders: 89 },
+  { name: "CN", revenue: 28200000, orders: 95 },
 ];
 
 const categoryData = [
-  { name: 'Món chính', value: 45, color: '#ff9f0d' },
-  { name: 'Khai vị', value: 25, color: '#195a00' },
-  { name: 'Tráng miệng', value: 15, color: '#999966' },
-  { name: 'Đồ uống', value: 15, color: '#3b82f6' },
+  { name: "Món chính", value: 45, color: "#ff9f0d" },
+  { name: "Khai vị", value: 25, color: "#195a00" },
+  { name: "Tráng miệng", value: 15, color: "#999966" },
+  { name: "Đồ uống", value: 15, color: "#3b82f6" },
 ];
 
 const topDishes = [
-  { name: 'Phở bò', orders: 45, revenue: '11.250.000đ', rating: 4.8 },
-  { name: 'Cơm gà', orders: 38, revenue: '9.500.000đ', rating: 4.7 },
-  { name: 'Bún chả', orders: 32, revenue: '8.000.000đ', rating: 4.9 },
-  { name: 'Bánh mì', orders: 28, revenue: '4.200.000đ', rating: 4.6 },
-  { name: 'Gỏi cuốn', orders: 25, revenue: '3.750.000đ', rating: 4.5 },
+  { name: "Phở bò", orders: 45, revenue: "11.250.000đ", rating: 4.8 },
+  { name: "Cơm gà", orders: 38, revenue: "9.500.000đ", rating: 4.7 },
+  { name: "Bún chả", orders: 32, revenue: "8.000.000đ", rating: 4.9 },
+  { name: "Bánh mì", orders: 28, revenue: "4.200.000đ", rating: 4.6 },
+  { name: "Gỏi cuốn", orders: 25, revenue: "3.750.000đ", rating: 4.5 },
 ];
 
 const recentOrders = [
@@ -146,16 +140,16 @@ const recentOrders = [
 
 const getStatusBadge = (status: string) => {
   switch (status) {
-    case 'completed':
-      return 'success';
-    case 'preparing':
-      return 'warning';
-    case 'delivering':
-      return 'info';
-    case 'pending':
-      return 'outline';
+    case "completed":
+      return "success";
+    case "preparing":
+      return "warning";
+    case "delivering":
+      return "info";
+    case "pending":
+      return "outline";
     default:
-      return 'default';
+      return "default";
   }
 };
 
@@ -178,11 +172,11 @@ export default function DashboardPage() {
             Quản lý hiệu quả mọi hoạt động của nhà hàng tại một nơi
           </p>
           <div className="flex gap-3 mt-4">
-            <Button size="sm" className="gap-2" onClick={() => router.push('/dashboard/reports')}>
+            <Button size="sm" className="gap-2" onClick={() => router.push("/dashboard/reports")}>
               <Eye className="h-4 w-4" />
               Xem báo cáo
             </Button>
-            <Button size="sm" variant="outline" className="gap-2" onClick={() => router.push('/dashboard/orders')}>
+            <Button size="sm" variant="outline" className="gap-2" onClick={() => router.push("/dashboard/orders")}>
               <ShoppingCart className="h-4 w-4" />
               Đơn hàng mới
             </Button>
@@ -194,18 +188,16 @@ export default function DashboardPage() {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {stats.map((stat, index) => {
           const Icon = stat.icon;
-          const TrendIcon = stat.trend === 'up' ? TrendingUp : TrendingDown;
+          const TrendIcon = stat.trend === "up" ? TrendingUp : TrendingDown;
           return (
-            <Card 
-              key={stat.title} 
+            <Card
+              key={stat.title}
               onClick={() => router.push(stat.link)}
               className="hover:shadow-lg transition-all duration-300 hover:-translate-y-1 cursor-pointer group animate-in slide-in-from-bottom duration-500"
               style={{ animationDelay: `${index * 100}ms` }}
             >
               <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-                <CardTitle className="text-sm font-medium text-muted-foreground">
-                  {stat.title}
-                </CardTitle>
+                <CardTitle className="text-sm font-medium text-muted-foreground">{stat.title}</CardTitle>
                 <div className={`p-2.5 rounded-lg ${stat.bgColor} group-hover:scale-110 transition-transform`}>
                   <Icon className={`h-4 w-4 ${stat.color}`} />
                 </div>
@@ -213,8 +205,8 @@ export default function DashboardPage() {
               <CardContent>
                 <div className="text-2xl font-bold">{stat.value}</div>
                 <div className="flex items-center gap-1 mt-1">
-                  <TrendIcon className={`h-3 w-3 ${stat.trend === 'up' ? 'text-green-600' : 'text-red-600'}`} />
-                  <span className={`text-xs font-medium ${stat.trend === 'up' ? 'text-green-600' : 'text-red-600'}`}>
+                  <TrendIcon className={`h-3 w-3 ${stat.trend === "up" ? "text-green-600" : "text-red-600"}`} />
+                  <span className={`text-xs font-medium ${stat.trend === "up" ? "text-green-600" : "text-red-600"}`}>
                     {stat.change}
                   </span>
                   <span className="text-xs text-muted-foreground">so với hôm qua</span>
@@ -237,11 +229,7 @@ export default function DashboardPage() {
                 </CardTitle>
                 <CardDescription>Doanh thu 7 ngày gần nhất</CardDescription>
               </div>
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={() => router.push('/dashboard/reports')}
-              >
+              <Button variant="outline" size="sm" onClick={() => router.push("/dashboard/reports")}>
                 Chi tiết
               </Button>
             </div>
@@ -251,22 +239,22 @@ export default function DashboardPage() {
               <AreaChart data={revenueData}>
                 <defs>
                   <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="hsl(var(--color-primary))" stopOpacity={0.8}/>
-                    <stop offset="95%" stopColor="hsl(var(--color-primary))" stopOpacity={0}/>
+                    <stop offset="5%" stopColor="hsl(var(--color-primary))" stopOpacity={0.8} />
+                    <stop offset="95%" stopColor="hsl(var(--color-primary))" stopOpacity={0} />
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" opacity={0.1} />
                 <XAxis dataKey="name" fontSize={12} />
                 <YAxis fontSize={12} tickFormatter={(value) => `${value / 1000000}M`} />
-                <Tooltip 
-                  formatter={(value: number) => `${value.toLocaleString('vi-VN')}đ`}
-                  contentStyle={{ borderRadius: '8px', border: '1px solid hsl(var(--border))' }}
+                <Tooltip
+                  formatter={(value: number) => `${value.toLocaleString("vi-VN")}đ`}
+                  contentStyle={{ borderRadius: "8px", border: "1px solid hsl(var(--border))" }}
                 />
-                <Area 
-                  type="monotone" 
-                  dataKey="revenue" 
-                  stroke="hsl(var(--color-primary))" 
-                  fillOpacity={1} 
+                <Area
+                  type="monotone"
+                  dataKey="revenue"
+                  stroke="hsl(var(--color-primary))"
+                  fillOpacity={1}
                   fill="url(#colorRevenue)"
                   strokeWidth={2}
                 />
@@ -285,11 +273,7 @@ export default function DashboardPage() {
                 </CardTitle>
                 <CardDescription>Tỷ lệ đơn hàng theo danh mục</CardDescription>
               </div>
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={() => router.push('/dashboard/menu')}
-              >
+              <Button variant="outline" size="sm" onClick={() => router.push("/dashboard/menu")}>
                 Xem menu
               </Button>
             </div>
@@ -328,12 +312,7 @@ export default function DashboardPage() {
                 <ShoppingCart className="h-5 w-5 text-primary" />
                 Đơn hàng gần đây
               </span>
-              <Button 
-                variant="ghost" 
-                size="sm" 
-                className="gap-2"
-                onClick={() => router.push('/dashboard/orders')}
-              >
+              <Button variant="ghost" size="sm" className="gap-2" onClick={() => router.push("/dashboard/orders")}>
                 Xem tất cả
                 <ArrowUpRight className="h-4 w-4" />
               </Button>
@@ -361,9 +340,7 @@ export default function DashboardPage() {
                   </div>
                   <div className="text-right space-y-1">
                     <p className="font-bold">{order.total}</p>
-                    <Badge variant={getStatusBadge(order.status) as any}>
-                      {order.statusText}
-                    </Badge>
+                    <Badge variant={getStatusBadge(order.status)}>{order.statusText}</Badge>
                   </div>
                 </div>
               ))}
@@ -379,12 +356,7 @@ export default function DashboardPage() {
                 <Star className="h-5 w-5 text-primary" />
                 Món ăn bán chạy
               </span>
-              <Button 
-                variant="ghost" 
-                size="sm" 
-                className="gap-2"
-                onClick={() => router.push('/dashboard/menu')}
-              >
+              <Button variant="ghost" size="sm" className="gap-2" onClick={() => router.push("/dashboard/menu")}>
                 Xem tất cả
                 <ArrowUpRight className="h-4 w-4" />
               </Button>
@@ -394,13 +366,22 @@ export default function DashboardPage() {
           <CardContent>
             <div className="space-y-4">
               {topDishes.map((dish, index) => (
-                <div 
-                  key={dish.name} 
+                <div
+                  key={dish.name}
                   className="flex items-center gap-4 p-2 rounded-lg hover:bg-accent/50 cursor-pointer transition-colors"
-                  onClick={() => router.push('/dashboard/menu')}
+                  onClick={() => router.push("/dashboard/menu")}
                 >
-                  <div className={`flex items-center justify-center w-8 h-8 rounded-full font-bold text-white
-                    ${index === 0 ? 'bg-yellow-500' : index === 1 ? 'bg-gray-400' : index === 2 ? 'bg-orange-600' : 'bg-gray-300'}`}
+                  <div
+                    className={`flex items-center justify-center w-8 h-8 rounded-full font-bold text-white
+                    ${
+                      index === 0
+                        ? "bg-yellow-500"
+                        : index === 1
+                        ? "bg-gray-400"
+                        : index === 2
+                        ? "bg-orange-600"
+                        : "bg-gray-300"
+                    }`}
                   >
                     {index + 1}
                   </div>
