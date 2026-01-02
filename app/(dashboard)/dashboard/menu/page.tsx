@@ -74,8 +74,10 @@ export default function MenuPage() {
     return {
       total: dishes.length,
       available: dishes.filter((d) => d.status === 'available').length,
-      unavailable: dishes.filter((d) => d.status === 'unavailable').length,
-      lowStock: dishes.filter((d) => d.stock <= 10).length,
+      // Tạm hết: stock === 0 hoặc status === 'unavailable'
+      unavailable: dishes.filter((d) => d.stock === 0 || d.status === 'unavailable').length,
+      // Sắp hết: stock > 0 && stock < 10
+      lowStock: dishes.filter((d) => d.stock > 0 && d.stock < 10).length,
     };
   };
 
@@ -86,6 +88,7 @@ export default function MenuPage() {
       <PageHeader
         title="Quản lý thực đơn"
         description="Quản lý món ăn, giá cả và tình trạng"
+        showSearch={false}
       >
         <div className="flex gap-2">
           <Button
