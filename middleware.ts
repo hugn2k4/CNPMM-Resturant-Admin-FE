@@ -2,7 +2,11 @@ import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
 export function middleware(request: NextRequest) {
-  const token = request.cookies.get('token')?.value;
+  // Tạm thời bypass middleware để test
+  console.log('🚦 Middleware called for:', request.nextUrl.pathname);
+  return NextResponse.next();
+  
+  /* const token = request.cookies.get('token')?.value;
   const { pathname } = request.nextUrl;
 
   // Paths that require authentication
@@ -26,7 +30,7 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  return NextResponse.next();
+  return NextResponse.next(); */
 }
 
 export const config = {

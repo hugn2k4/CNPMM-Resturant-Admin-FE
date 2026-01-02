@@ -45,7 +45,19 @@ export function DishesTable({ dishes, onRefresh }: DishesTableProps) {
     setDeleteDialogOpen(true);
   };
 
-  const getStatusBadge = (status: string) => {
+  const getStatusBadge = (status: string, stock?: number) => {
+    // Tạm hết: stock === 0 hoặc status === 'unavailable'
+    if (stock === 0 || status === 'unavailable') {
+      return (
+        <Badge
+          variant="destructive"
+          className="bg-red-100 text-red-700 hover:bg-red-200"
+        >
+          Tạm hết
+        </Badge>
+      );
+    }
+
     switch (status) {
       case 'available':
         return (
@@ -54,15 +66,6 @@ export function DishesTable({ dishes, onRefresh }: DishesTableProps) {
             className="bg-green-500 hover:bg-green-600 text-white"
           >
             Còn món
-          </Badge>
-        );
-      case 'unavailable':
-        return (
-          <Badge
-            variant="destructive"
-            className="bg-red-100 text-red-700 hover:bg-red-200"
-          >
-            Tạm hết
           </Badge>
         );
       case 'out-of-stock':
@@ -167,12 +170,16 @@ export function DishesTable({ dishes, onRefresh }: DishesTableProps) {
                       )}
                     </div>
                   </TableCell>
-                  <TableCell>{getStatusBadge(dish.status)}</TableCell>
+                  <TableCell>
+                    {getStatusBadge(dish.status, dish.stock)}
+                  </TableCell>
                   <TableCell>
                     <Badge
                       variant="outline"
                       className={
-                        dish.stock <= 10
+                        dish.stock === 0
+                          ? 'bg-red-50 text-red-700 dark:bg-red-950 dark:text-red-300'
+                          : dish.stock > 0 && dish.stock < 10
                           ? 'bg-orange-50 text-orange-700 dark:bg-orange-950 dark:text-orange-300'
                           : ''
                       }
