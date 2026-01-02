@@ -42,9 +42,9 @@ export default function CustomersPage() {
       const query = searchQuery.toLowerCase();
       const filtered = customers.filter(
         (customer) =>
-          customer.fullName.toLowerCase().includes(query) ||
-          customer.email.toLowerCase().includes(query) ||
-          customer.phoneNumber.toLowerCase().includes(query)
+          customer.fullName?.toLowerCase().includes(query) ||
+          customer.email?.toLowerCase().includes(query) ||
+          customer.phoneNumber?.toLowerCase().includes(query)
       );
       setFilteredCustomers(filtered);
     }
@@ -55,6 +55,7 @@ export default function CustomersPage() {
       <PageHeader
         title="Quản lý khách hàng"
         description="Quản lý thông tin khách hàng, khóa/mở khóa tài khoản"
+        showSearch={false}
       >
         <Button
           onClick={fetchCustomers}
