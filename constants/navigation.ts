@@ -5,6 +5,7 @@ import {
   MessageCircle,
   Settings,
   ShoppingCart,
+  Ticket,
   Users,
   Utensils,
 } from "lucide-react";
@@ -40,6 +41,12 @@ export const NAVIGATION_ITEMS: NavItem[] = [
     href: "/dashboard/customers",
     icon: Users,
     description: "Quản lý khách hàng",
+  },
+  {
+    title: "Voucher",
+    href: "/dashboard/vouchers",
+    icon: Ticket,
+    description: "Quản lý voucher & khuyến mãi",
   },
   {
     title: "Chat",

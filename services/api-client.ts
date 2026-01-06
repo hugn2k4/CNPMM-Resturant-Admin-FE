@@ -39,46 +39,38 @@ class ApiClient {
   }
 
   async get<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
-    const response: AxiosResponse<{ statusCode: number; message: string; data: T }> = await this.client.get(
-      url,
-      config
-    );
-    return response.data.data;
+    const response = await this.client.get(url, config);
+    // Handle both wrapped and direct responses
+    return this.extractData<T>(response.data);
   }
 
   async post<T>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<T> {
-    const response: AxiosResponse<{ statusCode: number; message: string; data: T }> = await this.client.post(
-      url,
-      data,
-      config
-    );
-    return response.data.data;
+    const response = await this.client.post(url, data, config);
+    return this.extractData<T>(response.data);
   }
 
   async put<T>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<T> {
-    const response: AxiosResponse<{ statusCode: number; message: string; data: T }> = await this.client.put(
-      url,
-      data,
-      config
-    );
-    return response.data.data;
+    const response = await this.client.put(url, data, config);
+    return this.extractData<T>(response.data);
   }
 
   async delete<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
-    const response: AxiosResponse<{ statusCode: number; message: string; data: T }> = await this.client.delete(
-      url,
-      config
-    );
-    return response.data.data;
+    const response = await this.client.delete(url, config);
+    return this.extractData<T>(response.data);
   }
 
   async patch<T>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<T> {
-    const response: AxiosResponse<{ statusCode: number; message: string; data: T }> = await this.client.patch(
-      url,
-      data,
-      config
-    );
-    return response.data.data;
+    const response = await this.client.patch(url, data, config);
+    return this.extractData<T>(response.data);
+  }
+
+  private extractData<T>(responseData: any): T {
+    // If response has 'data' property and other standard fields, extract it
+    if (responseData && typeof responseData === 'object' && 'data' in responseData && ('statusCode' in responseData || 'message' in responseData)) {
+      return responseData.data as T;
+    }
+    // Otherwise return as-is (NestJS direct response)
+    return responseData as T;
   }
 }
 
