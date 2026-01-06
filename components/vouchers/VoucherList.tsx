@@ -1,23 +1,9 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import {
-  Edit,
-  Trash2,
-  Power,
-  Calendar,
-  Tag,
-  DollarSign,
-  Users,
-} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Voucher } from "@/types/voucher";
 import { format } from "date-fns";
+import { Calendar, DollarSign, Edit, Power, Tag, Trash2, Users } from "lucide-react";
 
 interface VoucherListProps {
   vouchers: Voucher[];
@@ -85,9 +71,7 @@ export function VoucherList({
     return (
       <Card>
         <CardContent className="pt-6">
-          <div className="text-center py-8 text-muted-foreground">
-            Không tìm thấy voucher nào
-          </div>
+          <div className="text-center py-8 text-muted-foreground">Không tìm thấy voucher nào</div>
         </CardContent>
       </Card>
     );
@@ -104,15 +88,11 @@ export function VoucherList({
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-2">
-                      <code className="text-lg font-bold bg-primary/10 px-3 py-1 rounded">
-                        {voucher.code}
-                      </code>
+                      <code className="text-lg font-bold bg-primary/10 px-3 py-1 rounded">{voucher.code}</code>
                       <Badge className={status.color}>{status.label}</Badge>
                     </div>
                     <CardTitle className="text-lg">{voucher.name}</CardTitle>
-                    <CardDescription className="line-clamp-2 mt-1">
-                      {voucher.description}
-                    </CardDescription>
+                    <CardDescription className="line-clamp-2 mt-1">{voucher.description}</CardDescription>
                   </div>
                 </div>
               </CardHeader>
@@ -129,18 +109,14 @@ export function VoucherList({
                   {voucher.minOrderAmount > 0 && (
                     <div className="flex items-center gap-2 text-muted-foreground">
                       <DollarSign className="h-4 w-4" />
-                      <span>
-                        Đơn tối thiểu: {voucher.minOrderAmount.toLocaleString("vi-VN")}đ
-                      </span>
+                      <span>Đơn tối thiểu: {voucher.minOrderAmount.toLocaleString("vi-VN")}đ</span>
                     </div>
                   )}
 
                   {voucher.maxDiscountAmount && (
                     <div className="flex items-center gap-2 text-muted-foreground">
                       <DollarSign className="h-4 w-4" />
-                      <span>
-                        Giảm tối đa: {voucher.maxDiscountAmount.toLocaleString("vi-VN")}đ
-                      </span>
+                      <span>Giảm tối đa: {voucher.maxDiscountAmount.toLocaleString("vi-VN")}đ</span>
                     </div>
                   )}
 
@@ -163,12 +139,7 @@ export function VoucherList({
 
                 {/* Actions */}
                 <div className="flex gap-2 pt-2">
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={() => onEdit(voucher)}
-                    className="flex-1"
-                  >
+                  <Button size="sm" variant="outline" onClick={() => onEdit(voucher)} className="flex-1">
                     <Edit className="h-4 w-4 mr-1" />
                     Sửa
                   </Button>
@@ -179,11 +150,7 @@ export function VoucherList({
                   >
                     <Power className="h-4 w-4" />
                   </Button>
-                  <Button
-                    size="sm"
-                    variant="destructive"
-                    onClick={() => onDelete(voucher._id)}
-                  >
+                  <Button size="sm" variant="destructive" onClick={() => onDelete(voucher._id)}>
                     <Trash2 className="h-4 w-4" />
                   </Button>
                 </div>
@@ -196,23 +163,13 @@ export function VoucherList({
       {/* Pagination */}
       {totalPages > 1 && (
         <div className="flex items-center justify-center gap-2 mt-6">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => onPageChange(page - 1)}
-            disabled={page === 1}
-          >
+          <Button variant="outline" size="sm" onClick={() => onPageChange(page - 1)} disabled={page === 1}>
             Trước
           </Button>
           <span className="text-sm text-muted-foreground">
             Trang {page} / {totalPages}
           </span>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => onPageChange(page + 1)}
-            disabled={page === totalPages}
-          >
+          <Button variant="outline" size="sm" onClick={() => onPageChange(page + 1)} disabled={page === totalPages}>
             Sau
           </Button>
         </div>

@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Ticket, CheckCircle, XCircle, Clock } from "lucide-react";
 import type { VoucherStatistics } from "@/types/voucher";
+import { CheckCircle, Clock, Ticket, XCircle } from "lucide-react";
 
 interface VoucherStatsProps {
   statistics: VoucherStatistics;
@@ -43,9 +43,7 @@ export function VoucherStats({ statistics }: VoucherStatsProps) {
       {stats.map((stat) => (
         <Card key={stat.title}>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              {stat.title}
-            </CardTitle>
+            <CardTitle className="text-sm font-medium">{stat.title}</CardTitle>
             <div className={`${stat.bgColor} p-2 rounded-lg`}>
               <stat.icon className={`h-4 w-4 ${stat.color}`} />
             </div>

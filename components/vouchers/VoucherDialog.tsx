@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -9,19 +9,13 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { vouchersService } from "@/services/vouchers.service";
-import type { Voucher, CreateVoucherInput } from "@/types/voucher";
+import type { CreateVoucherInput, Voucher } from "@/types/voucher";
+import { useEffect, useState } from "react";
 
 interface VoucherDialogProps {
   open: boolean;
@@ -30,12 +24,7 @@ interface VoucherDialogProps {
   onSuccess: () => void;
 }
 
-export function VoucherDialog({
-  open,
-  onClose,
-  voucher,
-  onSuccess,
-}: VoucherDialogProps) {
+export function VoucherDialog({ open, onClose, voucher, onSuccess }: VoucherDialogProps) {
   const isEditing = !!voucher;
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState<CreateVoucherInput>({
@@ -49,9 +38,7 @@ export function VoucherDialog({
     maxUsage: undefined,
     maxUsagePerUser: 1,
     startDate: new Date().toISOString().split("T")[0],
-    endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
-      .toISOString()
-      .split("T")[0],
+    endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
     isActive: true,
     isPublic: true,
   });
@@ -85,9 +72,7 @@ export function VoucherDialog({
         maxUsage: undefined,
         maxUsagePerUser: 1,
         startDate: new Date().toISOString().split("T")[0],
-        endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
-          .toISOString()
-          .split("T")[0],
+        endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
         isActive: true,
         isPublic: true,
       });
@@ -113,8 +98,7 @@ export function VoucherDialog({
       }
       onSuccess();
     } catch (error) {
-      const errorMessage =
-        error instanceof Error ? error.message : "Có lỗi xảy ra";
+      const errorMessage = error instanceof Error ? error.message : "Có lỗi xảy ra";
       alert(errorMessage);
     } finally {
       setLoading(false);
@@ -125,13 +109,9 @@ export function VoucherDialog({
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>
-            {isEditing ? "Chỉnh sửa voucher" : "Tạo voucher mới"}
-          </DialogTitle>
+          <DialogTitle>{isEditing ? "Chỉnh sửa voucher" : "Tạo voucher mới"}</DialogTitle>
           <DialogDescription>
-            {isEditing
-              ? "Cập nhật thông tin voucher"
-              : "Điền thông tin để tạo voucher mới"}
+            {isEditing ? "Cập nhật thông tin voucher" : "Điền thông tin để tạo voucher mới"}
           </DialogDescription>
         </DialogHeader>
 
@@ -144,9 +124,7 @@ export function VoucherDialog({
             <Input
               id="code"
               value={formData.code}
-              onChange={(e) =>
-                setFormData({ ...formData, code: e.target.value.toUpperCase() })
-              }
+              onChange={(e) => setFormData({ ...formData, code: e.target.value.toUpperCase() })}
               placeholder="VD: SUMMER2024"
               required
               minLength={4}
@@ -176,9 +154,7 @@ export function VoucherDialog({
             <Textarea
               id="description"
               value={formData.description}
-              onChange={(e) =>
-                setFormData({ ...formData, description: e.target.value })
-              }
+              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               placeholder="Mô tả chi tiết về voucher"
               required
               rows={3}
@@ -255,9 +231,7 @@ export function VoucherDialog({
                 onChange={(e) =>
                   setFormData({
                     ...formData,
-                    maxDiscountAmount: e.target.value
-                      ? parseFloat(e.target.value)
-                      : undefined,
+                    maxDiscountAmount: e.target.value ? parseFloat(e.target.value) : undefined,
                   })
                 }
                 min="0"
@@ -315,9 +289,7 @@ export function VoucherDialog({
                 id="startDate"
                 type="date"
                 value={formData.startDate}
-                onChange={(e) =>
-                  setFormData({ ...formData, startDate: e.target.value })
-                }
+                onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
                 required
               />
             </div>
@@ -330,9 +302,7 @@ export function VoucherDialog({
                 id="endDate"
                 type="date"
                 value={formData.endDate}
-                onChange={(e) =>
-                  setFormData({ ...formData, endDate: e.target.value })
-                }
+                onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
                 required
               />
             </div>
@@ -344,9 +314,7 @@ export function VoucherDialog({
               <input
                 type="checkbox"
                 checked={formData.isActive}
-                onChange={(e) =>
-                  setFormData({ ...formData, isActive: e.target.checked })
-                }
+                onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
                 className="w-4 h-4"
               />
               <span className="text-sm">Kích hoạt ngay</span>
@@ -356,9 +324,7 @@ export function VoucherDialog({
               <input
                 type="checkbox"
                 checked={formData.isPublic}
-                onChange={(e) =>
-                  setFormData({ ...formData, isPublic: e.target.checked })
-                }
+                onChange={(e) => setFormData({ ...formData, isPublic: e.target.checked })}
                 className="w-4 h-4"
               />
               <span className="text-sm">Hiển thị công khai</span>

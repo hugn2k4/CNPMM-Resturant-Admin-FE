@@ -1,29 +1,22 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import { Plus, Search, Ticket } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { vouchersService } from "@/services/vouchers.service";
-import type { Voucher, VoucherStatistics } from "@/types/voucher";
+import { VoucherDialog } from "@/components/vouchers/VoucherDialog";
 import { VoucherList } from "@/components/vouchers/VoucherList";
 import { VoucherStats } from "@/components/vouchers/VoucherStats";
-import { VoucherDialog } from "@/components/vouchers/VoucherDialog";
+import { vouchersService } from "@/services/vouchers.service";
+import type { Voucher, VoucherStatistics } from "@/types/voucher";
+import { Plus, Search, Ticket } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
 
 export default function VouchersPage() {
   const [vouchers, setVouchers] = useState<Voucher[]>([]);
   const [statistics, setStatistics] = useState<VoucherStatistics | null>(null);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
-  const [filterActive, setFilterActive] = useState<boolean | undefined>(
-    undefined
-  );
+  const [filterActive, setFilterActive] = useState<boolean | undefined>(undefined);
   const [filterType, setFilterType] = useState<string | undefined>(undefined);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
@@ -54,7 +47,7 @@ export default function VouchersPage() {
         limit,
       });
       console.log("Vouchers response:", response);
-      
+
       // Handle both array and object response
       if (Array.isArray(response)) {
         // Response is direct array
@@ -126,9 +119,7 @@ export default function VouchersPage() {
             <Ticket className="h-8 w-8 text-primary" />
             Quản lý Voucher
           </h1>
-          <p className="text-muted-foreground mt-2">
-            Tạo và quản lý các mã giảm giá cho khách hàng
-          </p>
+          <p className="text-muted-foreground mt-2">Tạo và quản lý các mã giảm giá cho khách hàng</p>
         </div>
         <Button onClick={handleCreate} className="gap-2">
           <Plus className="h-4 w-4" />
@@ -161,20 +152,8 @@ export default function VouchersPage() {
 
             {/* Active Filter */}
             <select
-              value={
-                filterActive === undefined
-                  ? "all"
-                  : filterActive
-                  ? "active"
-                  : "inactive"
-              }
-              onChange={(e) =>
-                setFilterActive(
-                  e.target.value === "all"
-                    ? undefined
-                    : e.target.value === "active"
-                )
-              }
+              value={filterActive === undefined ? "all" : filterActive ? "active" : "inactive"}
+              onChange={(e) => setFilterActive(e.target.value === "all" ? undefined : e.target.value === "active")}
               className="px-4 py-2 border border-input rounded-md bg-background"
             >
               <option value="all">Tất cả trạng thái</option>
@@ -185,9 +164,7 @@ export default function VouchersPage() {
             {/* Type Filter */}
             <select
               value={filterType || "all"}
-              onChange={(e) =>
-                setFilterType(e.target.value === "all" ? undefined : e.target.value)
-              }
+              onChange={(e) => setFilterType(e.target.value === "all" ? undefined : e.target.value)}
               className="px-4 py-2 border border-input rounded-md bg-background"
             >
               <option value="all">Tất cả loại</option>

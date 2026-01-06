@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 
 class ApiClient {
   private client: AxiosInstance;
@@ -66,7 +66,12 @@ class ApiClient {
 
   private extractData<T>(responseData: any): T {
     // If response has 'data' property and other standard fields, extract it
-    if (responseData && typeof responseData === 'object' && 'data' in responseData && ('statusCode' in responseData || 'message' in responseData)) {
+    if (
+      responseData &&
+      typeof responseData === "object" &&
+      "data" in responseData &&
+      ("statusCode" in responseData || "message" in responseData)
+    ) {
       return responseData.data as T;
     }
     // Otherwise return as-is (NestJS direct response)

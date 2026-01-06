@@ -1,10 +1,5 @@
+import type { CreateVoucherInput, UpdateVoucherInput, Voucher, VoucherStatistics } from "@/types/voucher";
 import { apiClient } from "./api-client";
-import type {
-  Voucher,
-  CreateVoucherInput,
-  UpdateVoucherInput,
-  VoucherStatistics,
-} from "@/types/voucher";
 
 interface VoucherListResponse {
   data: Voucher[];
@@ -23,17 +18,13 @@ export const vouchersService = {
     limit?: number;
   }): Promise<VoucherListResponse> {
     const queryParams = new URLSearchParams();
-    if (params?.isActive !== undefined)
-      queryParams.append("isActive", String(params.isActive));
-    if (params?.discountType)
-      queryParams.append("discountType", params.discountType);
+    if (params?.isActive !== undefined) queryParams.append("isActive", String(params.isActive));
+    if (params?.discountType) queryParams.append("discountType", params.discountType);
     if (params?.search) queryParams.append("search", params.search);
     if (params?.page) queryParams.append("page", String(params.page));
     if (params?.limit) queryParams.append("limit", String(params.limit));
 
-    return apiClient.get<VoucherListResponse>(
-      `/vouchers?${queryParams.toString()}`
-    );
+    return apiClient.get<VoucherListResponse>(`/vouchers?${queryParams.toString()}`);
   },
 
   // Get voucher by ID
